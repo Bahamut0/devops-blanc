@@ -92,7 +92,6 @@ jobs:
         labels: feature, automated pr
         branch: features
         base: ${{ github.ref }}
-        # author: ${{ github.actor }}
       
   #   ###########################################################
   #   # Job 3 Merger la branche de feature dans la branche main #

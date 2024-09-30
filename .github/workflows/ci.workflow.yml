@@ -56,8 +56,10 @@ jobs:
     ##############################################################
 
   build_and_test:
+    if_merged:
+      if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/features'
+    # if: github.ref == 'refs/heads/features'
     steps:
 
     ################################

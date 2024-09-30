@@ -15,7 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
+    # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
+    if: ${{ (github.event.review.state == 'approved') }}
     steps:
       - name: Dump GitHub context
         env:
@@ -23,7 +24,7 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - run: echo ${{ github.event.review.state }}
 
-  # if: ${{ github.ref == 'refs/heads/test' }}
+  if: ${{ github.ref == 'refs/heads/test' }}
   build_and_test:
     runs-on: ubuntu-latest
     steps:

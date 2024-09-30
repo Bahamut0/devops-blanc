@@ -7,7 +7,7 @@ on:
       - main
   push:
     branches:
-      - features
+      # - features
       - features-*
         
 

@@ -5,17 +5,19 @@ on:
   push:
       branches:
         - features-*
-        - main
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  
+
+  #   ##############################################################
+  #   # JOB 1 - Build l'env python et effectuer les tests unitaires #
+  #   ##############################################################
+
   build_and_test:
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/test'
     if: startsWith(github.ref, 'refs/heads/features-')
     steps:
 
@@ -48,10 +50,12 @@ jobs:
 
     - name: Tests unitaires
       run: scripts/mktest.sh
+
       
   #   ###########################################################
   #   # Job 2 Merger la branche de feature dans la branche main #
   #   ###########################################################
+
   merge_on_main:
     needs: build_and_test
     runs-on: ubuntu-latest

@@ -5,7 +5,7 @@ on:
   push:
       branches:
         - features-*
-        - features
+        # - features
 
 permissions:
   contents: write

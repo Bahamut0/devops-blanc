@@ -1,12 +1,8 @@
 name: Devops-Blanc
 
 on:
-  # repository_dispatch:
-  #   types: [create-pull-request]
 
   push:
-    # branches-ignore:
-    #   - main
     branches:
       - feature-*
   pull_request:
@@ -53,12 +49,7 @@ jobs:
           labels: feature, automated pr
           assignees: Bahamut0
           reviewers: Bahamut0
-          # milestone: 1
           branch: features
-
-    # if: (contains(github.ref, 'feature-') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)      
-      # - name: Change env merge
-      #   run: set $IS_FEATURES_MERGED=true 
 
 
     ##############################################################
@@ -66,13 +57,12 @@ jobs:
     ##############################################################
 
   build_and_test:
-    # needs: createPullRequest
+
     if: github.event.pull_request.merged
-    # if: env.IS_FEATURES_MERGED == "true"
+
 
     runs-on: ubuntu-latest
-    # if: (contains(github.ref, 'features') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)
-    # if: github.ref == 'refs/heads/features'
+
     steps:
 
     ################################
@@ -108,46 +98,15 @@ jobs:
       run: scripts/mktest.sh
 
 
-  # pull_request_features :
-  #   needs: build_and_test
-  #   runs-on: ubuntu-latest
-  #   # if: startsWith(github.ref, 'refs/heads/feature-')
-  #   # if: github.ref == 'refs/heads/features'
-  #   steps:
-
-  #   # recupération du repository
-  #   - name: git checkout
-  #     uses: actions/checkout@v3
-  #     with:
-  #       token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-  #       fetch-depth: 0
-    
-  #   - name: Récupération de la branche courante (base)
-  #     run: echo ${{ github.ref }} 
-
-  #   # https://github.com/marketplace/actions/github-pull-request-action
-  #   - name: Création de la pull request
-  #     id: open-pr
-  #     uses: peter-evans/create-pull-request@v7
-  #     with:
-  #       token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-  #       commit-message: 'Envoi vers stage - Commit numéro: ${{github.sha}}'
-  #       title: 'Envoi vers stage - Commit numéro: ${{github.sha}}'
-  #       body: Test
-  #       labels: feature, automated pr
-  #       branch: features
-  #       # base: ${{ github.ref }}
-      
   # #   ###########################################################
   # #   # Job 3 Merger la branche de feature dans la branche main #
   # #   ###########################################################
 
   merge_on_stage:
+
     needs: build_and_test
     runs-on: ubuntu-latest
     
-    # if: github.ref == 'refs/heads/features'
-    # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'test')) }}
     steps:
 
     # recupération du repository
@@ -156,7 +115,6 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-    # https://github.com/marketplace/actions/github-pull-request-action
     - name: Création de la pull request
       id: open-pr
       uses: peter-evans/create-pull-request@v7
@@ -170,11 +128,7 @@ jobs:
         labels: feature, automated pr
         branch: stage
         delete-branch: false
-        # author: ${{ github.actor }}
-        # assignees: Bahamut0
-        # reviewers: Bahamut0
 
-      # https://github.com/marketplace/actions/enable-pull-request-automerge
     - name: Activer la merge automatique
       if: steps.open-pr.outputs.pr_number != ''
       uses: peter-evans/enable-pull-request-automerge@v3
@@ -199,7 +153,6 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-    # https://github.com/marketplace/actions/github-pull-request-action
     - name: Création de la pull request
       id: open-pr
       uses: peter-evans/create-pull-request@v7
@@ -213,7 +166,6 @@ jobs:
         labels: feature, automated pr
         branch: main
 
-      # https://github.com/marketplace/actions/enable-pull-request-automerge
     - name: Activer la merge automatique
       if: steps.open-pr.outputs.pr_number != ''
       uses: peter-evans/enable-pull-request-automerge@v3

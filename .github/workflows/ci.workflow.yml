@@ -1,8 +1,8 @@
 name: Devops-Blanc
 
 on:
-  repository_dispatch:
-    types: [create-pull-request]
+  # repository_dispatch:
+  #   types: [create-pull-request]
 
   push:
     # branches-ignore:

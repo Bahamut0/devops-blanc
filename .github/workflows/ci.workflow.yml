@@ -60,11 +60,10 @@ jobs:
 
   build_and_test:
     needs: createPullRequest
-    # if: github.event.pull_request.merged == true
-    if: github.event.pull_request.merged
+    # if: github.event.pull_request.merged
 
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/features'
+    if: github.ref == 'refs/heads/features'
     steps:
 
     ################################

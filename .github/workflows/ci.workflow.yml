@@ -1,0 +1,75 @@
+name: Devops-Blanc
+
+on:
+  pull_request:
+    types: [labeled]
+  pull_request_review:
+    types: [submitted]
+
+  push:
+      branches:
+        # - features-*
+        - test
+        - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - run: echo ${{ github.event.review.state }}
+
+  # if: ${{ github.ref == 'refs/heads/test' }}
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+
+    ################################
+    # Checkout #
+    ################################
+    - name: Checkout - Récuparation du projet
+      uses: actions/checkout@v4
+
+
+    ################################
+    # Python #
+    ################################
+
+    - name: Installation de Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+
+    ################################
+    # Tests   #
+    ################################
+
+    - name: Rendre les fichiers sh exécutable
+      run: chmod u+x scripts/*
+
+    - name: Génération de la doc main.md
+      run: scripts/mkdoc.sh
+
+    - name: Tests unitaires
+      run: scripts/mktest.sh
+      
+  # merge_on_main:
+  #   needs: build_and_test
+  #   runs-on: ubuntu-latest
+  #   steps:
+
+  #   ################################
+  #   # Merge #
+  #   ################################
+  #   - name: Checkout - Récuparation du projet
+  #     uses: actions/checkout@v4
+
+      
+  
+
+      

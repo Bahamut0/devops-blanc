@@ -66,7 +66,7 @@ jobs:
     ##############################################################
 
   build_and_test:
-    needs: createPullRequest
+    # needs: createPullRequest
     if: github.event.pull_request.merged
     # if: env.IS_FEATURES_MERGED == "true"
 

@@ -24,9 +24,10 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - run: echo ${{ github.event.review.state }}
 
-  if: ${{ github.ref == 'refs/heads/test' }}
+  
   build_and_test:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/test'
     steps:
 
     ################################

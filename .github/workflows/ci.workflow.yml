@@ -91,7 +91,6 @@ jobs:
           [create-pull-request](https://github.com/peter-evans/create-pull-request).
         labels: feature, automated pr
         branch: features
-        delete-branch: false
         base: ${{ github.ref }}
         # author: ${{ github.actor }}
       

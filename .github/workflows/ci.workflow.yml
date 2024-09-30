@@ -63,7 +63,7 @@ jobs:
   pull_request_features :
     # needs: build_and_test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/features'
+    # if: github.ref == 'refs/heads/features'
     steps:
 
     # recupération du repository
@@ -93,7 +93,7 @@ jobs:
   #   ###########################################################
 
   merge_on_stage:
-    needs: pull_request_features
+    # needs: pull_request_features
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/features'
     steps:

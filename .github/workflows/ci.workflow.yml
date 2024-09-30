@@ -1,7 +1,7 @@
 name: Devops-Blanc
 
 on:
-  # pull_request:
+  pull_request:
     # branches:
     #   - features
       # - stage
@@ -66,6 +66,7 @@ jobs:
   pull_request_features :
     needs: build_and_test
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/feature-')
     # if: github.ref == 'refs/heads/features'
     steps:
 

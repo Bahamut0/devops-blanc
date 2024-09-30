@@ -93,7 +93,7 @@ jobs:
         body: Test
         labels: feature, automated pr
         branch: features
-        base: ${{ github.ref }}
+        # base: ${{ github.ref }}
       
   #   ###########################################################
   #   # Job 3 Merger la branche de feature dans la branche main #

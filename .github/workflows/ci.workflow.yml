@@ -23,7 +23,7 @@ jobs:
 
   build_and_test:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/features-')
+    if: (startsWith(github.ref, 'refs/heads/features-') && (github.ref ! 'refs/heads/features')) 
     steps:
 
     ################################

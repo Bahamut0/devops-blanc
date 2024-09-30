@@ -56,7 +56,7 @@ jobs:
           # milestone: 1
           branch: features
 
-    if: (contains(github.ref, 'feature-') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)      
+    # if: (contains(github.ref, 'feature-') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)      
       # - name: Change env merge
       #   run: set $IS_FEATURES_MERGED=true 
 

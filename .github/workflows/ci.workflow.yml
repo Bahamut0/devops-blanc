@@ -63,7 +63,8 @@ jobs:
     # if: github.event.pull_request.merged
 
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/features'
+    if: (contains(github.ref, 'features') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)
+    # if: github.ref == 'refs/heads/features'
     steps:
 
     ################################

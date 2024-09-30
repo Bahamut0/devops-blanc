@@ -1,35 +1,35 @@
 name: Devops-Blanc
 
 on:
-  pull_request:
-    types: [labeled]
-  pull_request_review:
-    types: [submitted]
+  # pull_request:
+  #   types: [labeled]
+  # pull_request_review:
+  #   types: [submitted]
 
   push:
       branches:
-        # - features-*
-        - test
+        - features-*
         - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
-    if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-workflow')) }}
-    # if: ${{ (github.event.review.state == 'approved') }}
-    # refs/heads/features-workflow
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - run: echo ${{ github.event.review.state }}
+    # runs-on: ubuntu-latest
+    # # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
+    # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-workflow')) }}
+    # # if: ${{ (github.event.review.state == 'approved') }}
+    # # refs/heads/features-workflow
+    # steps:
+    #   - name: Dump GitHub context
+    #     env:
+    #       GITHUB_CONTEXT: ${{ toJSON(github) }}
+    #     run: echo "$GITHUB_CONTEXT"
+    #   - run: echo ${{ github.event.review.state }}
 
   
   build_and_test:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/test'
+    # if: github.ref == 'refs/heads/test'
+    if: startsWith(github.ref, 'refs/heads/features-')
     steps:
 
     ################################

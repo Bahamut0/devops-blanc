@@ -16,7 +16,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
-    if: ${{ (github.event.review.state == 'approved') }}
+    if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-workflow')) }}
+    # if: ${{ (github.event.review.state == 'approved') }}
+    # refs/heads/features-workflow
     steps:
       - name: Dump GitHub context
         env:

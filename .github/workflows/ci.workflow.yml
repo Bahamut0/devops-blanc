@@ -93,7 +93,7 @@ jobs:
         branch: features
         delete-branch: false
         base: ${{ github.ref }}
-        author: ${{ github.actor }}
+        # author: ${{ github.actor }}
       
   #   ###########################################################
   #   # Job 3 Merger la branche de feature dans la branche main #

@@ -12,7 +12,7 @@ on:
         - main
 
 jobs:
-  build:
+  # build:
     # runs-on: ubuntu-latest
     # # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
     # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-workflow')) }}

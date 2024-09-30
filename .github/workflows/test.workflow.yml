@@ -1,6 +1,7 @@
 name: Devops-Blanc
 
 on:
+  push: 
   pull_request:
     types: [labeled]
   pull_request_review:
@@ -21,7 +22,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
       - run: echo ${{ github.event.review.state }}
-      
+
   # if: ${{ github.ref == 'refs/heads/main' }}
   # build_and_test:
   #   runs-on: ubuntu-latest

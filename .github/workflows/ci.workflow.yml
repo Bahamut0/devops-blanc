@@ -4,11 +4,11 @@ on:
   repository_dispatch:
     types: [create-pull-request]
 
-  # push:
-  #   # branches-ignore:
-  #   #   - main
-  #   branches:
-  #     - feature-*
+  push:
+    # branches-ignore:
+    #   - main
+    branches:
+      - feature-*
         
 
 permissions:

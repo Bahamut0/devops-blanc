@@ -5,6 +5,7 @@ on:
   push:
       branches:
         - features-*
+        - features
 
 permissions:
   contents: write
@@ -89,6 +90,7 @@ jobs:
   merge_on_stage:
     needs: pull_request_features
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/features'
     steps:
 
     # recupération du repository
@@ -111,7 +113,7 @@ jobs:
         labels: feature, automated pr
         branch: stage
         delete-branch: false
-        author: ${{ github.actor }}
+        # author: ${{ github.actor }}
         # assignees: Bahamut0
         # reviewers: Bahamut0
 

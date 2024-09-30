@@ -2,10 +2,14 @@ name: Devops-Blanc
 
 on:
   pull_request:
+    branches:
+      - stage
+      - main
   push:
-      branches:
-        - features-*
-        - features
+    branches:
+      - features
+      - features-*
+        
 
 permissions:
   contents: write

@@ -12,12 +12,15 @@ on:
   pull_request:
     branches: [ features ]
     types: [opened, closed]
-      
-        
+              
 
 permissions:
   contents: write
   pull-requests: write
+
+
+env:
+  IS_FEATURES_MERGED: false
 
 jobs:
 
@@ -27,13 +30,14 @@ jobs:
 
   createPullRequest:
     runs-on: ubuntu-latest
-    # if: startsWith(github.ref, 'refs/heads/feature-')
-    # if: contains(github.ref, 'feature-') && ${{ !contains(github.event.head_commit.message, 'Merge pull request') }}
+
     if: (contains(github.ref, 'feature-') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == false)
+ 
     steps:
       - uses: actions/checkout@v3
       - name: Create report file
         run: date +%s > report.txt
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -52,6 +56,10 @@ jobs:
           # milestone: 1
           branch: features
 
+    if: (contains(github.ref, 'feature-') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)      
+      - name: Change env merge
+        run: echo "::set-env name=IS_FEATURES_MERGED::true"
+        # run: echo "IS_FEATURES_MERGED=true"
 
 
     ##############################################################
@@ -59,11 +67,12 @@ jobs:
     ##############################################################
 
   build_and_test:
-    # needs: createPullRequest
+    needs: createPullRequest
     # if: github.event.pull_request.merged
+    if: env.IS_FEATURES_MERGED == "true"
 
     runs-on: ubuntu-latest
-    if: (contains(github.ref, 'features') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)
+    # if: (contains(github.ref, 'features') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)
     # if: github.ref == 'refs/heads/features'
     steps:
 

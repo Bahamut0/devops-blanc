@@ -102,7 +102,7 @@ jobs:
   merge_on_stage:
     needs: pull_request_features
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/features'
+    if: github.ref == 'refs/heads/features'
     # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'test')) }}
     steps:
 

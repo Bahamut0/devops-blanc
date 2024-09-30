@@ -76,9 +76,6 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         fetch-depth: 0
     
-    - name: Get changes
-      run: git diff --name-only -r HEAD^1 HEAD
-    
     - name: Récupération de la branche courante (base)
       run: echo ${{ github.ref }} 
 
@@ -95,7 +92,7 @@ jobs:
           [create-pull-request](https://github.com/peter-evans/create-pull-request).
         labels: feature, automated pr
         branch: features
-        base: ${{ github.ref }}
+        # base: ${{ github.ref }}
       
   #   ###########################################################
   #   # Job 3 Merger la branche de feature dans la branche main #

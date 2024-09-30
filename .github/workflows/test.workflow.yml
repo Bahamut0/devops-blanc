@@ -48,6 +48,10 @@ jobs:
     ################################
     # Tests   #
     ################################
+
+    - name: Rendre les fichiers sh exécutable
+      run: chmod u+x scripts/*
+
     - name: Génération de la doc main.md
       run: scripts/mkdoc.sh
 

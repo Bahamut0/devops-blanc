@@ -9,6 +9,7 @@ on:
     #   - main
     branches:
       - feature-*
+      - features
       
         
 
@@ -18,47 +19,9 @@ permissions:
 
 jobs:
 
-  #   ##############################################################
-  #   # JOB 1 - Build l'env python et effectuer les tests unitaires #
-  #   ##############################################################
-
-  # build_and_test:
-  #   runs-on: ubuntu-latest
-  #   if: startsWith(github.ref, 'refs/heads/feature-')
-  #   steps:
-
-  #   ################################
-  #   # Checkout #
-  #   ################################
-  #   - name: Checkout - Récuparation du projet
-  #     uses: actions/checkout@v4
-
-  #   - name: Récupération de la branche courante (base)
-  #     run: echo ${{ github.ref }} 
-
-  #   ################################
-  #   # Python #
-  #   ################################
-
-  #   - name: Installation de Python
-  #     uses: actions/setup-python@v5
-  #     with:
-  #       python-version: '3.x'
-
-
-  #   ################################
-  #   # Tests   #
-  #   ################################
-
-  #   - name: Rendre les fichiers sh exécutable
-  #     run: chmod u+x scripts/*
-
-  #   - name: Génération de la doc main.md
-  #     run: scripts/mkdoc.sh
-
-  #   - name: Tests unitaires
-  #     run: scripts/mktest.sh
-
+  #   ##################################################################
+  #   # Job 1 Créer une pull request pour la branche principale features #
+  #   ##################################################################
 
   createPullRequest:
     runs-on: ubuntu-latest
@@ -85,9 +48,50 @@ jobs:
           reviewers: Bahamut0
           # milestone: 1
           branch: features
-  #   ##################################################################
-  #   # Job 2 Créer une pull request pour la branche principale features #
-  #   ##################################################################
+
+
+
+    ##############################################################
+    # JOB 2 - Build l'env python et effectuer les tests unitaires #
+    ##############################################################
+
+  build_and_test:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/features'
+    steps:
+
+    ################################
+    # Checkout #
+    ################################
+    - name: Checkout - Récuparation du projet
+      uses: actions/checkout@v4
+
+    - name: Récupération de la branche courante (base)
+      run: echo ${{ github.ref }} 
+
+    ################################
+    # Python #
+    ################################
+
+    - name: Installation de Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+
+    ################################
+    # Tests   #
+    ################################
+
+    - name: Rendre les fichiers sh exécutable
+      run: chmod u+x scripts/*
+
+    - name: Génération de la doc main.md
+      run: scripts/mkdoc.sh
+
+    - name: Tests unitaires
+      run: scripts/mktest.sh
+
 
   # pull_request_features :
   #   needs: build_and_test

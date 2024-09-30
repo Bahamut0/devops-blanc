@@ -1,0 +1,54 @@
+name: Devops-Blanc
+
+on:
+  push:
+      branches:
+        - test
+
+jobs:
+
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+
+    ################################
+    # Checkout #
+    ################################
+    - name: Checkout - Récuparation du projet
+      uses: actions/checkout@v4
+
+
+    ################################
+    # Python #
+    ################################
+
+    - name: Installation de Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+
+    ################################
+    # Tests   #
+    ################################
+    - name: Génération de la doc main.md
+      run: scripts/mkdoc.sh
+
+    - name: Tests unitaires
+      run: scripts/mktest.sh
+      
+  # merge_on_main:
+  #   needs: build_and_test
+  #   runs-on: ubuntu-latest
+  #   steps:
+
+  #   ################################
+  #   # Merge #
+  #   ################################
+  #   - name: Checkout - Récuparation du projet
+  #     uses: actions/checkout@v4
+
+      
+  
+
+      

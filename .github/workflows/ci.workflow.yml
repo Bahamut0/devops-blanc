@@ -34,7 +34,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: 'Changement - Commit ${{github.sha}}'
+          commit-message: '${{github.sha}}'
           committer: Bahamut0 <Bahamut0@users.noreply.github.com>
           body: |
             New report

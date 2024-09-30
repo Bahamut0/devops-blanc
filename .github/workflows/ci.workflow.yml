@@ -3,12 +3,12 @@ name: Devops-Blanc
 on:
   pull_request:
     branches:
+      - features
       # - stage
       # - main
       # - features
   push:
     branches:
-      # - features
       - feature-*
         
 

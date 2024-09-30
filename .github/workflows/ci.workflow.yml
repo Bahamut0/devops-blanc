@@ -5,7 +5,7 @@ on:
     branches:
       - stage
       - main
-      # - features
+      - features
   push:
     branches:
       # - features

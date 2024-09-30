@@ -70,7 +70,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: Add report file
-          committer: Peter Evans <peter-evans@users.noreply.github.com>
+          committer: Bahamut0 <Bahamut0@users.noreply.github.com>
           body: |
             New report
             - Contains *today's* date
@@ -79,8 +79,8 @@ jobs:
             [1]: https://github.com/peter-evans/create-pull-request
           title: '[Example] Add report file'
           labels: report, automated pr
-          assignees: peter-evans
-          reviewers: peter-evans
+          assignees: Bahamut0
+          reviewers: Bahamut0
           # milestone: 1
           branch: features
   #   ##################################################################

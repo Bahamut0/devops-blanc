@@ -81,7 +81,7 @@ jobs:
         labels: feature, automated pr
         branch: stage
         delete-branch: false
-        author: ${{ github.actor }}
+        # author: ${{ github.actor }}
       
   #   ###########################################################
   #   # Job 3 Merger la branche de feature dans la branche main #

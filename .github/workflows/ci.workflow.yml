@@ -80,7 +80,7 @@ jobs:
           [create-pull-request](https://github.com/peter-evans/create-pull-request).
         labels: feature, automated pr
         branch: features
-        author: ${{ github.actor }}
+        # author: ${{ github.actor }}
       
   #   ###########################################################
   #   # Job 3 Merger la branche de feature dans la branche main #

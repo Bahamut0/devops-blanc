@@ -10,7 +10,7 @@ on:
     branches:
       - feature-*
   pull_request:
-    branches: [ features ]
+    branches: [ feature-*, features ]
     types: [opened, closed]
               
 
@@ -57,10 +57,8 @@ jobs:
           branch: features
 
     if: (contains(github.ref, 'feature-') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)      
-      - name: Change env merge
-        # run: echo "::set-env name=IS_FEATURES_MERGED::true"
-        run: $IS_FEATURES_MERGED=true 
-        # run: echo "IS_FEATURES_MERGED=true"
+      # - name: Change env merge
+      #   run: set $IS_FEATURES_MERGED=true 
 
 
     ##############################################################
@@ -69,8 +67,8 @@ jobs:
 
   build_and_test:
     needs: createPullRequest
-    # if: github.event.pull_request.merged
-    if: env.IS_FEATURES_MERGED == "true"
+    if: github.event.pull_request.merged
+    # if: env.IS_FEATURES_MERGED == "true"
 
     runs-on: ubuntu-latest
     # if: (contains(github.ref, 'features') && github.event_name == 'push' && contains(toJSON(github.event.head_commit.message), 'Merge pull request') == true)

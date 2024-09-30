@@ -1,10 +1,6 @@
 name: Devops-Blanc
 
 on:
-  # pull_request:
-  #   types: [labeled]
-  # pull_request_review:
-  #   types: [submitted]
 
   push:
       branches:
@@ -12,19 +8,6 @@ on:
         - main
 
 jobs:
-  # build:
-    # runs-on: ubuntu-latest
-    # # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-')) }}
-    # if: ${{ (github.event.review.state == 'approved') && (contains(github.event.pull_request.labels.*.name, 'features-workflow')) }}
-    # # if: ${{ (github.event.review.state == 'approved') }}
-    # # refs/heads/features-workflow
-    # steps:
-    #   - name: Dump GitHub context
-    #     env:
-    #       GITHUB_CONTEXT: ${{ toJSON(github) }}
-    #     run: echo "$GITHUB_CONTEXT"
-    #   - run: echo ${{ github.event.review.state }}
-
   
   build_and_test:
     runs-on: ubuntu-latest
@@ -62,10 +45,24 @@ jobs:
     - name: Tests unitaires
       run: scripts/mktest.sh
       
-  # merge_on_main:
-  #   needs: build_and_test
-  #   runs-on: ubuntu-latest
-  #   steps:
+  merge_on_main:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    steps:
+
+  #   ################################
+  #   # Checkout #
+  #   ################################
+
+    - name: git checkout
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  #   ################################
+  #   # Create PR #
+  #   ################################
+
+
 
   #   ################################
   #   # Merge #

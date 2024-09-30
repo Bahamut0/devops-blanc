@@ -9,6 +9,7 @@ on:
     #   - main
     branches:
       - feature-*
+      
         
 
 permissions:
@@ -62,6 +63,7 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     # if: startsWith(github.ref, 'refs/heads/feature-')
+    if: contains( github.ref, 'feature-' )
     steps:
       - uses: actions/checkout@v3
       - name: Create report file

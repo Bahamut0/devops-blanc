@@ -179,47 +179,26 @@ jobs:
         merge-method: squash
 
   
-  # release:
-  #   needs: merge_on_main
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Changement de version et tag
-  #       id: tag_version
-  #       uses: mathieudutour/github-tag-action@v6.2
-  #       with:
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #         commit_sha: ""
-          
-      # - name: Création d'une release GitHub
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     tag: ${{ steps.tag_version.outputs.new_tag }}
-      #     name: Release ${{ steps.tag_version.outputs.new_tag }}
-      #     body: ${{ steps.tag_version.outputs.changelog }}
-
-  create-tag:
+  release:
     needs: merge_on_main
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
+      - name: Changement de version et tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "v.0.0.1"
-          force_push_tag: true
-          # tag_exists_error: false
-          message: "Latest release"
-
+          commit_sha: ""
+          
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ steps.tag_create.outputs.tag }}
-          name: Release ${{ steps.tag_create.outputs.tag }}
-          body: ${{ steps.tag_create.outputs.message }}
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+
+
       
   
 

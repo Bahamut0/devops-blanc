@@ -123,19 +123,19 @@ jobs:
     
     steps:
 
-
-      - uses: actions/checkout@master
+      - name: Checkcout
+        uses: actions/checkout@master
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          fetch-depth: 0
+          # ref: stage
+          # fetch-depth: 0
 
-      - name: Merge features -> stage
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: features
-          target_branch: stage
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: créer pull request pour stage
+        run: gh pr create -B stage -H features --title 'Merge features into stage' --body 'Created by Github action'
+      - name: merge pull request de stage
+        run: gh pr merge --auto --squash "stage"
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # recupération du repository
     # - name: git checkout

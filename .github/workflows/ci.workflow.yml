@@ -33,8 +33,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create report file
-        # run: date +%s > report.txt
-        run: echo hello > report.txt
+        run: date +%s > report.txt
+        # run: echo hello > report.txt
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5

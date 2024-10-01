@@ -17,7 +17,7 @@ permissions:
 
 env:
   IS_FEATURES_MERGED: false
-  
+
 
 jobs:
 
@@ -142,6 +142,8 @@ jobs:
   #   ###########################################################
   #   # Job 4 Merger la branche de stage dans la branche main #
   #   ###########################################################
+
+  
 
   merge_on_main:
     needs: merge_on_stage

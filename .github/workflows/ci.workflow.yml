@@ -120,6 +120,9 @@ jobs:
 
 
       - uses: actions/checkout@master
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: 0
 
       - name: Merge features -> stage
         uses: devmasx/merge-branch@master

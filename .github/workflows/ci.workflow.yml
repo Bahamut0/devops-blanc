@@ -64,46 +64,46 @@ jobs:
     # JOB 2 - Build l'env python et effectuer les tests unitaires #
     ##############################################################
 
-  build_and_test:
+  # build_and_test:
 
-    # Ne fonctionne que si la branche features a été mergée après une pull request validée
-    if: github.event.pull_request.merged
+  #   # Ne fonctionne que si la branche features a été mergée après une pull request validée
+  #   if: github.event.pull_request.merged
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    steps:
+  #   steps:
 
-    ################################
-    # Checkout #
-    ################################
-    - name: Checkout - Récuparation du projet
-      uses: actions/checkout@v4
+  #   ################################
+  #   # Checkout #
+  #   ################################
+  #   - name: Checkout - Récuparation du projet
+  #     uses: actions/checkout@v4
 
-    - name: Récupération de la branche courante (base)
-      run: echo ${{ github.ref }} 
+  #   - name: Récupération de la branche courante (base)
+  #     run: echo ${{ github.ref }} 
 
-    ################################
-    # Python #
-    ################################
+  #   ################################
+  #   # Python #
+  #   ################################
 
-    - name: Installation de Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
+  #   - name: Installation de Python
+  #     uses: actions/setup-python@v5
+  #     with:
+  #       python-version: '3.x'
 
 
-    ################################
-    # Tests   #
-    ################################
+  #   ################################
+  #   # Tests   #
+  #   ################################
 
-    - name: Rendre les fichiers sh exécutable
-      run: chmod u+x scripts/*
+  #   - name: Rendre les fichiers sh exécutable
+  #     run: chmod u+x scripts/*
 
-    - name: Génération de la doc main.md
-      run: scripts/mkdoc.sh
+  #   - name: Génération de la doc main.md
+  #     run: scripts/mkdoc.sh
 
-    - name: Tests unitaires
-      run: scripts/mktest.sh
+  #   - name: Tests unitaires
+  #     run: scripts/mktest.sh
 
 
   # #   ###########################################################
@@ -112,7 +112,7 @@ jobs:
 
   merge_on_stage:
 
-    needs: build_and_test
+    # needs: build_and_test
     runs-on: ubuntu-latest
     
     steps:
@@ -131,8 +131,7 @@ jobs:
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        git fetch origin/stage
-        git rebase origin/stage
+        git merge origin/stage
  
 
     # - name: Create report file

@@ -112,6 +112,7 @@ jobs:
 
   merge_on_stage:
 
+    if: github.event.pull_request.merged
     # needs: build_and_test
     runs-on: ubuntu-latest
     
@@ -123,7 +124,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         fetch-depth: 0
-        ref: stage
+        # ref: stage
 
     - name: git
       run: |
@@ -131,7 +132,7 @@ jobs:
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        git pull
+        git checkout origin/stage
         git merge origin/features
  
 

@@ -16,7 +16,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  issues: write
 
 
 env:
@@ -135,7 +134,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-
+          gh pr create -B stage -H features --title 'Commit ${{github.sha}} - Merge features into stage' --body 'Created by Github action'
           gh pr merge --auto --squash "stage"
         
     # recupération du repository

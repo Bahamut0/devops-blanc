@@ -198,6 +198,7 @@ jobs:
       #     body: ${{ steps.tag_version.outputs.changelog }}
 
   create-tag:
+    needs: merge_on_main
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

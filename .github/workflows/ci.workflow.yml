@@ -8,7 +8,7 @@ on:
       - stage
       - main
   pull_request:
-    branches: [ feature-*, features ]
+    branches: [ feature-*, features, stage, main ]
     types: [opened, closed]
     
               

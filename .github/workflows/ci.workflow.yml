@@ -123,8 +123,8 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-    # - name: Create report file
-    #     run: date +%s > report.txt
+    - name: Create report file
+        run: date +%s > report.txt
 
     # création de la pull request
     - name: Création de la pull request
@@ -168,8 +168,8 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-    # - name: Create report file
-    #     run: date +%s > report.txt
+    - name: Create report file
+        run: date +%s > report.txt
     
     # création de la pull request
     - name: Création de la pull request

@@ -66,7 +66,6 @@ jobs:
     # Ne fonctionne que si la branche features a été mergée après une pull request validée
     if: github.event.pull_request.merged
 
-
     runs-on: ubuntu-latest
 
     steps:
@@ -103,17 +102,9 @@ jobs:
     - name: Tests unitaires
       run: scripts/mktest.sh
 
-    # - name: Activer la merge automatique
-    #   if: steps.open-pr.outputs.pr_number != ''
-    #   uses: peter-evans/enable-pull-request-automerge@v3
-    #   with:
-    #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-    #     pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
-    #     merge-method: squash
-
 
   # #   ###########################################################
-  # #   # Job 3 Merger la branche de feature dans la branche main #
+  # #   # JOB 3 Merger la branche de feature dans la branche main #
   # #   ###########################################################
 
   merge_on_stage:
@@ -129,6 +120,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
+    # création de la pull request
     - name: Création de la pull request
       id: open-pr
       uses: peter-evans/create-pull-request@v7
@@ -143,6 +135,7 @@ jobs:
         branch: stage
         delete-branch: false
 
+      # merge automatique sur la branche stage
     - name: Activer la merge automatique
       if: steps.open-pr.outputs.pr_number != ''
       uses: peter-evans/enable-pull-request-automerge@v3
@@ -168,7 +161,8 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
+    
+    # création de la pull request
     - name: Création de la pull request
       id: open-pr
       uses: peter-evans/create-pull-request@v7
@@ -182,6 +176,7 @@ jobs:
         labels: feature, automated pr
         branch: main
 
+      # merge automatique sur la branche main
     - name: Activer la merge automatique
       if: steps.open-pr.outputs.pr_number != ''
       uses: peter-evans/enable-pull-request-automerge@v3
@@ -189,7 +184,6 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
         merge-method: squash
-
   
   release:
     needs: merge_on_main
@@ -198,17 +192,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Changement de version et tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_sha: ""
+        # uses: mathieudutour/github-tag-action@v6.2
+        # with:
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        uses: juliansangillo/tag-version@v1  
+        with:  
+            production-branch: main  
           
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          tag: ${{ steps.tag_version.outputs.revision }}
+          name: Release ${{ steps.tag_version.outputs.revision }}
+          body: ${{ steps.tag_version.outputs.description }}
 
 
       

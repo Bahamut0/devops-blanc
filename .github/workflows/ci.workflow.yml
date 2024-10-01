@@ -203,7 +203,9 @@ jobs:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
         uses: juliansangillo/tag-version@v1  
         with:  
-            production-branch: main  
+            production-branch: main 
+            test-branch: stage  
+            dev-branch: features  
           
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1

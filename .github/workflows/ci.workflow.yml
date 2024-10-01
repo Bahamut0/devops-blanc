@@ -5,21 +5,16 @@ on:
   push:
     branches:
       - feature-*
+      - stage
+      - main
   pull_request:
     branches: [ feature-*, features ]
     types: [opened, closed]
-  pull_request_review:
-    types:
-      - submitted
               
 
 permissions:
   contents: write
   pull-requests: write
-
-
-env:
-  IS_FEATURES_MERGED: false
 
 
 jobs:

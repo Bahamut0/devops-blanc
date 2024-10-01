@@ -131,8 +131,7 @@ jobs:
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        git pull
-        git merge origin/features
+        git merge --no-ff --no-commit origin/features
  
 
     # - name: Create report file

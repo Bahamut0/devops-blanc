@@ -195,7 +195,7 @@ jobs:
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
       - name: Test du nom de release
-        run: echo ${{ steps }} - ${{ steps.tag_version }} - ${{ steps.tag_version.outputs }} - ${{ steps.tag_version.outputs }}
+        run: echo ${{ steps[] }} - ${{ steps.tag_version[0] }} - ${{ steps.tag_version.outputs[0] }} - ${{ steps.tag_version.outputs[0] }}
         
 
       

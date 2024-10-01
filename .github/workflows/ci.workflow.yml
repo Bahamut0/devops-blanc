@@ -112,6 +112,7 @@ jobs:
 
   merge_on_stage:
 
+    if: github.event.pull_request.merged
     # needs: build_and_test
     runs-on: ubuntu-latest
     

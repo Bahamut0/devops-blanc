@@ -5,16 +5,21 @@ on:
   push:
     branches:
       - feature-*
-      - stage
-      - main
   pull_request:
     branches: [ feature-*, features ]
     types: [opened, closed]
+  pull_request_review:
+    types:
+      - submitted
               
 
 permissions:
   contents: write
   pull-requests: write
+
+
+env:
+  IS_FEATURES_MERGED: false
 
 
 jobs:
@@ -51,8 +56,8 @@ jobs:
           labels: feature, automated pr
           assignees: Bahamut0
           reviewers: Bahamut0
-          branch: features
-          # base: features
+          branch: ${{github.ref}}
+          base: features
 
 
     ##############################################################
@@ -192,7 +197,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
-          ref: main
+
 
       - name: Changement de version et tag
         id: tag_version

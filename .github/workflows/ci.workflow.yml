@@ -8,9 +8,7 @@ on:
   pull_request:
     branches: [ feature-*, features ]
     types: [opened, closed]
-  pull_request_review:
-    types:
-      - submitted
+    
               
 
 permissions:
@@ -125,7 +123,7 @@ jobs:
 
     # création de la pull request
     - name: Création de la pull request
-      id: stage-pr
+      id: open-pr
       uses: peter-evans/create-pull-request@v7
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -140,12 +138,12 @@ jobs:
 
       # merge automatique sur la branche stage
     - name: Activer la merge automatique
-      if: steps.stage-pr.outputs.pr_number != ''
+      if: steps.open-pr.outputs.pr_number != ''
       uses: peter-evans/enable-pull-request-automerge@v3
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        pull-request-number: ${{ steps.stage-pr.outputs.pr_number }}
-        merge-method: squash
+        pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+        merge-method: merge
 
 
   #   ###########################################################
@@ -167,7 +165,7 @@ jobs:
     
     # création de la pull request
     - name: Création de la pull request
-      id: main-pr
+      id: open-pr
       uses: peter-evans/create-pull-request@v7
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -181,12 +179,12 @@ jobs:
 
       # merge automatique sur la branche main
     - name: Activer la merge automatique
-      if: steps.main-pr.outputs.pr_number != ''
+      if: steps.open-pr.outputs.pr_number != ''
       uses: peter-evans/enable-pull-request-automerge@v3
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        pull-request-number: ${{ steps.main-pr.outputs.pr_number }}
-        merge-method: squash
+        pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+        merge-method: merge
   
   release:
     needs: merge_on_main

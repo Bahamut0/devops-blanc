@@ -122,7 +122,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        ref: stage
+ 
 
     # - name: Create report file
     #   run: date +%s > report.txt
@@ -169,7 +169,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        ref: main
 
     # - name: Create report file
     #   run: date +%s > report.txt

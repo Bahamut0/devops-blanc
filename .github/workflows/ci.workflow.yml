@@ -128,7 +128,7 @@ jobs:
         uses: actions/checkout@master
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          # ref: stage
+          ref: features
           # fetch-depth: 0
 
       - name: créer pull request pour stage
@@ -136,7 +136,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
 
-          gh pr merge --auto --squash "features"
+          gh pr merge --auto --squash "stage"
         
     # recupération du repository
     # - name: git checkout

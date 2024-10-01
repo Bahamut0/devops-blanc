@@ -118,22 +118,32 @@ jobs:
     
     steps:
 
-    # recupération du repository
-    - name: git checkout
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        fetch-depth: 0
-        # ref: stage
 
-    - name: git
-      run: |
-        # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-        git --version
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
-        git checkout origin/stage
-        git merge origin/features
+      - uses: actions/checkout@master
+
+      - name: Merge features -> stage
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: features
+          target_branch: stage
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    # recupération du repository
+    # - name: git checkout
+    #   uses: actions/checkout@v4
+    #   with:
+    #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    #     fetch-depth: 0
+    #     ref: stage
+
+    # - name: git
+    #   run: |
+    #     # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+    #     git --version
+    #     git config user.name "GitHub Actions Bot"
+    #     git config user.email "<>"
+    #     git merge origin/features
  
 
     # - name: Create report file

@@ -42,7 +42,7 @@ jobs:
         run: gh pr create -B features -H ${{github.ref}} --title 'Merge ${{github.ref}} into features' --body 'Created by Github action'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            
+
       # - name: Create report file
       #   run: date +%s > report.txt
       #   # le fichier est créé en fonction de la date courante sinon la pull request ne se lance pas. probable config à faire sur github pour changer ce comportement
@@ -135,7 +135,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create -B stage -H features --title 'Commit ${{github.sha}} - Merge features into stage' --body 'Created by Github action'
+
           gh pr merge --auto --squash "stage"
         
     # recupération du repository

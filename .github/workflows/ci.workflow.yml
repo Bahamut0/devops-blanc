@@ -56,8 +56,8 @@ jobs:
           labels: feature, automated pr
           assignees: Bahamut0
           reviewers: Bahamut0
-          branch: '${{github.ref}}'
-          base: features
+          branch: features
+          # base: features
 
 
     ##############################################################
@@ -197,7 +197,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
-
+          ref: main
 
       - name: Changement de version et tag
         id: tag_version

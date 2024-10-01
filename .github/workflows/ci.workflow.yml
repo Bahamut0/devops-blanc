@@ -189,7 +189,13 @@ jobs:
     needs: merge_on_main
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: '0'
+
+
       - name: Changement de version et tag
         id: tag_version
         # uses: mathieudutour/github-tag-action@v6.2

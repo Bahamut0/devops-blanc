@@ -137,7 +137,6 @@ jobs:
           gh pr create -B stage -H features --title 'Merge features into stage' --body 'Created by Github action'
           gh pr merge --auto --squash "stage"
         
-
     # recupération du repository
     # - name: git checkout
     #   uses: actions/checkout@v4

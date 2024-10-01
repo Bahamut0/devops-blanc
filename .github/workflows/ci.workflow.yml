@@ -209,6 +209,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: "v.0.0.1"
+          force_push_tag: true
           # tag_exists_error: false
           message: "Latest release"
 

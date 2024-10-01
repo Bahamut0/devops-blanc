@@ -53,7 +53,7 @@ jobs:
           labels: feature, automated pr
           assignees: Bahamut0
           reviewers: Bahamut0
-          branch: github.ref
+          branch: '${{github.ref}}'
           base: features
 
 

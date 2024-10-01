@@ -123,7 +123,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         fetch-depth: 0
-        ref: stage
+        # ref: stage
 
     - name: git
       run: |
@@ -131,7 +131,8 @@ jobs:
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        git merge --no-ff --no-commit origin/features
+        git checkout origin/stage
+        git merge origin/features
  
 
     # - name: Create report file

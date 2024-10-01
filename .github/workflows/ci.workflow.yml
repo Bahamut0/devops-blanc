@@ -4,12 +4,12 @@ on:
 
   push:
     branches:
-      # - feature-*
-      # - stage
-      # - main
+      - feature-*
+      - stage
+      - main
   pull_request:
-    # branches: [ feature-*, features ]
-    # types: [opened, closed]
+    branches: [ feature-*, features ]
+    types: [opened, closed]
     
               
 

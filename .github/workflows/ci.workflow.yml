@@ -207,16 +207,17 @@ jobs:
       - uses: rickstaa/action-create-tag@v1
         id: "tag_create"
         with:
-          tag: "latest"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: "v.0.0.1"
           tag_exists_error: false
           message: "Latest release"
 
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ steps.tag_create.outputs.tag_exists }}
-          name: Release ${{ steps.tag_create.outputs.tag_exists }}
-          body: ${{ steps.tag_create.outputs.changelog }}
+          tag: ${{ steps.tag_create.outputs.tag }}
+          name: Release ${{ steps.tag_create.outputs.tag }}
+          body: ${{ steps.tag_create.outputs.message }}
       
   
 

@@ -5,12 +5,9 @@ on:
   push:
     branches:
       - feature-*
-      - stage
-      - main
   pull_request:
-    branches: [ feature-*, features, stage, main ]
+    branches: [ feature-*, features ]
     types: [opened, closed]
-    
               
 
 permissions:
@@ -56,7 +53,7 @@ jobs:
           labels: feature, automated pr
           assignees: Bahamut0
           reviewers: Bahamut0
-          branch: ${{github.ref}}
+          branch: '${{github.ref}}'
           base: features
 
 
@@ -145,7 +142,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
-        merge-method: merge
+        merge-method: squash
 
 
   #   ###########################################################
@@ -186,7 +183,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
-        merge-method: merge
+        merge-method: squash
   
   release:
     needs: merge_on_main
@@ -206,9 +203,7 @@ jobs:
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
         uses: juliansangillo/tag-version@v1  
         with:  
-            production-branch: main 
-            test-branch: stage  
-            dev-branch: features  
+            production-branch: main  
           
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1

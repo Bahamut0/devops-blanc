@@ -214,8 +214,8 @@ jobs:
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ steps.tag_create.outputs.new_tag }}
-          name: Release ${{ steps.tag_create.outputs.new_tag }}
+          tag: ${{ steps.tag_create.outputs.tag_exists }}
+          name: Release ${{ steps.tag_create.outputs.tag_exists }}
           body: ${{ steps.tag_create.outputs.changelog }}
       
   

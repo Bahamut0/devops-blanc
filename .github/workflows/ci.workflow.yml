@@ -183,8 +183,8 @@ jobs:
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ steps.package-version.outputs.version }}
-          name: v${{ steps.package-version.outputs.version }}
+          tag:  ${{ steps.package-version.outputs.version }}
+          name: ${{ steps.package-version.outputs.version }}
           body: ${{ steps.package-version.outputs.changelog }}
 
           

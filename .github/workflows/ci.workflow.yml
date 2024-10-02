@@ -152,7 +152,9 @@ jobs:
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
+        git rm report.txt 
         git rebase origin/features
+
  
 
     # # création de la pull request

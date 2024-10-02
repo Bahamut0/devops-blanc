@@ -145,12 +145,18 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         fetch-depth: 0
         ref: stage
-  
+    - name: Observation des branches
+      run: |
+        echo ${{github.head_ref}}
+        echo ${{github.base_ref}}
+        echo ${{github.ref}}
+
     - name: git
       run: |
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
+        git pull --all
         git merge origin/features
         # git rebase origin/features
         # git rm report.txt 

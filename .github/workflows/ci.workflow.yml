@@ -3,7 +3,7 @@ name: Devops-Blanc
 on:
 
   push:
-    branches: [ feature-*, main ]
+    branches: [ feature-* ]
     
   pull_request:
     branches: [ feature-*, features, stage, main ]
@@ -144,7 +144,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          fetch-depth: '0'
+          fetch-depth: 0
           ref: main
 
 

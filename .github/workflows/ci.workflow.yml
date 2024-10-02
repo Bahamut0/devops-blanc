@@ -3,7 +3,7 @@ name: Devops-Blanc
 on:
 
   push:
-    branches: [ feature-* ]
+    branches: [ feature-*, main ]
     
   pull_request:
     branches: [ feature-*, features, stage, main ]
@@ -180,6 +180,10 @@ jobs:
         # if: env.previous_tag
         with:
           test: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
+          commit: ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # This is the feature of "test" + "last commit" to automatically create tags. This is not a tagged push. 
 
       - name: Generate Changelog
         id: changelog

@@ -151,7 +151,7 @@ jobs:
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        git rebase features
+        git rebase refs/heads/features
         git rm report.txt 
         git rebase --continue
 

@@ -145,7 +145,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         fetch-depth: 0
-        ref: stage
+        # ref: stage
 
 
     
@@ -181,7 +181,7 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        branch: features
+        branch: stage
 
     - name: Enable Pull Request Automerge
       if: steps.cpr.outputs.pull-request-operation == 'created'

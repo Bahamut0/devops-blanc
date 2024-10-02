@@ -19,10 +19,6 @@ permissions:
   pull-requests: write
 
 
-env:
-  IS_FEATURES_MERGED: false
-
-
 jobs:
 
   #   ##################################################################
@@ -96,8 +92,7 @@ jobs:
 
   merge_on_stage:
 
-    if: github.event.pull_request.merged
-    # needs: build_and_test
+    needs: build_and_test
     runs-on: ubuntu-latest
     
     steps:
@@ -159,10 +154,13 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_sha: false
+          
           
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
+          
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}

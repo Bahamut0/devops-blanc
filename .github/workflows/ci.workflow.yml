@@ -137,7 +137,7 @@ jobs:
       #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: |
 
-      #     gh pr merge --auto --squash "stage"
+      #     gh pr merge --auto --rebase "stage"
         
     # recupération du repository
     - name: git checkout
@@ -189,7 +189,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-        merge-method: squash
+        merge-method: rebase
 
 
 
@@ -217,7 +217,7 @@ jobs:
     #   with:
     #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     #     pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
-    #     merge-method: squash
+    #     merge-method: rebase
 
 
   #   ###########################################################
@@ -250,7 +250,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.prm.outputs.pull-request-number }}
-        merge-method: squash
+        merge-method: rebase
     
     # création de la pull request
     # - name: Création de la pull request
@@ -280,7 +280,7 @@ jobs:
   #     with:
   #       token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
   #       pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
-  #       merge-method: squash
+  #       merge-method: rebase
   
   release:
     needs: merge_on_main

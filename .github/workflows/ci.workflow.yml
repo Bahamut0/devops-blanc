@@ -174,41 +174,11 @@ jobs:
       #     name: ${{ steps.tag_version.outputs.revision }}
       #     # body: ${{ steps.tag_version.outputs.description }} 
 
-      - name: Changement de version et tag
-        id: create_tag
-        uses: jaywcjlove/create-tag-action@main
-        # if: env.previous_tag
+      - name: Bump version and push tag
+        uses: laputansoft/github-tag-action@v4.6
         with:
-          test: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
-          commit: ${{ github.sha }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      # This is the feature of "test" + "last commit" to automatically create tags. This is not a tagged push. 
-
-      - name: Generate Changelog
-        id: changelog
-        uses: jaywcjlove/changelog-generator@main
-        if: steps.create_tag.outputs.successful == 'true'
-        with:
-          head-ref: ${{steps.create_tag.outputs.version}}
-          filter-author: (jaywcjlove|小弟调调™|dependabot\[bot\]|Renovate Bot)
-          filter: (^[\s]+?[R|r]elease)|(^[R|r]elease)
-
-      - name: Create Release
-        uses: ncipollo/release-action@v1
-        if: steps.create_tag.outputs.successful == 'true'
-        with:
-          allowUpdates: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: ${{ steps.create_tag.outputs.version }}
-          tag: ${{ steps.create_tag.outputs.version }}
-          body: |
-            ```bash
-            npm i @uiw/react-heat-map@${{steps.create_tag.outputs.versionNumber}}
-            ```
-
-            ${{ steps.changelog.outputs.compareurl }}
-            ${{ steps.changelog.outputs.changelog }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.package-version.outputs.version }}
 
           
           

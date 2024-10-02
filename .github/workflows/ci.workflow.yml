@@ -152,7 +152,8 @@ jobs:
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
         git pull --all
-        git rebase origin/features
+        git merge origin/features
+        # git rebase origin/features
         # git rm report.txt 
         # git rebase --continue
 

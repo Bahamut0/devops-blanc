@@ -5,7 +5,7 @@ on:
   workflow_call:
     inputs:
       tag:
-        required: false
+        required: true
         type: string
   push:
     # tags:
@@ -153,9 +153,8 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
+          ref: ${{ inputs.tag }}
           # ref: main
-
-
 
       - name: Generate Git Tag
         id: generate_tag
@@ -187,8 +186,8 @@ jobs:
 
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
-        # with:
-          # tag: ${{ inputs.tag.outputs.version }}
+        with:
+          tag: ${{ inputs.tag }}
           # name: ${{ inputs.tag.outputs.version }}
           # body: ${{ inputs.tag.outputs.changelog }}
           

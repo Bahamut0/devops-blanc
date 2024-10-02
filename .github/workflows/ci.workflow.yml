@@ -3,7 +3,9 @@ name: Devops-Blanc
 on:
 
   push:
-    branches: [ feature-* ]
+    branches: [ feature-*, features, main ]
+    tags:
+      - v*
     
   pull_request:
     branches: [ feature-*, features, stage, main ]

@@ -3,9 +3,10 @@ name: Devops-Blanc
 on:
 
   push:
-    branches: [ feature-*, features, main ]
     tags:
-      - v*
+    - '*'
+    branches: [ feature-*, features, main ]
+
     
   pull_request:
     branches: [ feature-*, features, stage, main ]
@@ -183,7 +184,7 @@ jobs:
         with:
           
           tag: ${{ steps.generate_tag.outputs.new_tag }}
-          name: Release ${{ steps.generate_tag.outputs.new_tag }}
+          name: ${{ steps.generate_tag.outputs.new_tag }}
           body: ${{ steps.generate_tag.outputs.changelog }}
 ########################################################################
       # - name: Changement de version et tag

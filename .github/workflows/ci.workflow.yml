@@ -124,39 +124,36 @@ jobs:
     
     steps:
 
-      - name: Checkcout
-        uses: actions/checkout@master
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          ref: features
-          # fetch-depth: 0
+      # - name: Checkcout
+      #   uses: actions/checkout@master
+      #   with:
+      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      #     ref: features
+      #     # fetch-depth: 0
 
-      - name: créer pull request pour stage
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
+      # - name: créer pull request pour stage
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
 
-          gh pr merge --auto --squash "stage"
+      #     gh pr merge --auto --squash "stage"
         
     # recupération du repository
-    # - name: git checkout
-    #   uses: actions/checkout@v4
-    #   with:
-    #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-    #     fetch-depth: 0
-    #     ref: stage
+    - name: git checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        fetch-depth: 0
+        ref: stage
 
-    # - name: git
-    #   run: |
-    #     # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-    #     git --version
-    #     git config user.name "GitHub Actions Bot"
-    #     git config user.email "<>"
-    #     git merge origin/features
+    - name: git
+      run: |
+        # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+        git --version
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git merge origin/features
  
-
-    # - name: Create report file
-    #   run: date +%s > report.txt
 
     # # création de la pull request
     # - name: Création de la pull request

@@ -185,12 +185,12 @@ jobs:
           echo "${{ steps.generate_tag.outputs.new_tag }}"
 
 
-      # - name: Création d'une release GitHub
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     tag: ${{ inputs.tag.outputs.version }}
-      #     name: ${{ inputs.tag.outputs.version }}
-      #     body: ${{ inputs.tag.outputs.changelog }}
+      - name: Création d'une release GitHub
+        uses: ncipollo/release-action@v1
+        # with:
+          # tag: ${{ inputs.tag.outputs.version }}
+          # name: ${{ inputs.tag.outputs.version }}
+          # body: ${{ inputs.tag.outputs.changelog }}
           
           # tag: ${{ steps.generate_tag.outputs.new_tag }}
           # name: ${{ steps.generate_tag.outputs.new_tag }}

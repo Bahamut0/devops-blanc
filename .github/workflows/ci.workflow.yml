@@ -182,6 +182,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         branch: stage
+        base: features
 
     - name: Enable Pull Request Automerge
       if: steps.cpr.outputs.pull-request-operation == 'created'
@@ -243,6 +244,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         branch: main
+        base: stage
 
     - name: Enable Pull Request Automerge
       if: steps.prm.outputs.pull-request-operation == 'created'

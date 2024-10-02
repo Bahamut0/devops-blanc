@@ -190,7 +190,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-        merge-method: rebase
+        merge-method: merge
 
 
 
@@ -252,7 +252,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.prm.outputs.pull-request-number }}
-        merge-method: rebase
+        merge-method: merge
     
     # création de la pull request
     # - name: Création de la pull request

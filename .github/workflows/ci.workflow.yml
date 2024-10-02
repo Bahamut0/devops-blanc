@@ -172,7 +172,7 @@ jobs:
           # name: Release ${{ steps.tag_version.outputs.new_tag }}
           # body: ${{ steps.tag_version.outputs.changelog }}
           tag: ${{ steps.tag_version.outputs.revision }}
-          name: Release ${{ steps.tag_version.outputs.revision }}
+          name: ${{ steps.tag_version.outputs.revision }}
           # body: ${{ steps.tag_version.outputs.description }} 
    
   

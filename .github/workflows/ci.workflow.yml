@@ -173,6 +173,7 @@ jobs:
           NEW_TAG="${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.${VERSION_PATCH}"
           echo "Generated new tag: $NEW_TAG"
           echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_OUTPUT
 
       - name: Push Git Tag
         shell: bash {0}
@@ -183,15 +184,22 @@ jobs:
           git tag $NEW_TAG
           # git push origin $NEW_TAG
           git push origin main
+
+      - name: Check Tag variables
+        run: | 
           echo "le new tag est: ${{ steps.generate_tag.outputs.new_tag }}"
-          echo "le new tag est: $NEW_TAG "
+          echo "le new tag est: ${{ steps.generate_tag }}"
+          echo "le new tag est: ${{ secrets.NEW_TAG }}"
+          echo "le new tag est: ${{ env.NEW_TAG }}"
+          echo "le new tag est: $NEW_TAG"
 
 
-      - name: Création d'une release GitHub
-        uses: ncipollo/release-action@v1
-        with:
-          tag: $NEW_TAG
-          name: $NEW_TAG
+      # - name: Création d'une release GitHub
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     tag: ${{secrets.NEW_TAG}}
+      #     name: ${{secrets.NEW_TAG}}
+      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           # body: ${{ inputs.tag.outputs.changelog }}
           
           # tag: ${{ steps.generate_tag.outputs.new_tag }}

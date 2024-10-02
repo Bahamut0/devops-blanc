@@ -177,7 +177,7 @@ jobs:
       - name: Changement de version et tag
         id: create_tag
         uses: jaywcjlove/create-tag-action@main
-        if: env.previous_tag
+        # if: env.previous_tag
         with:
           test: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
 

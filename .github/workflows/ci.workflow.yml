@@ -151,24 +151,30 @@ jobs:
 
       - name: Changement de version et tag
         id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # default_bump: minor
-          # en cas de commit_sha: false error : At least 40 characters are required; only 5 were supplied
-          # commit_sha: false
+        # uses: mathieudutour/github-tag-action@v6.2
+        # with:
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        #   # default_bump: minor
+        #   # en cas de commit_sha: false error : At least 40 characters are required; only 5 were supplied
+        #   # commit_sha: false
+        uses: juliansangillo/tag-version@v1  
+        with:  
+            production-branch: main 
+            test-branch: stage  
+            dev-branch: features  
           
           
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
           
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
-
-
-      
+          # tag: ${{ steps.tag_version.outputs.new_tag }}
+          # name: Release ${{ steps.tag_version.outputs.new_tag }}
+          # body: ${{ steps.tag_version.outputs.changelog }}
+          tag: ${{ steps.tag_version.outputs.revision }}
+          name: Release ${{ steps.tag_version.outputs.revision }}
+          # body: ${{ steps.tag_version.outputs.description }} 
+   
   
 
       

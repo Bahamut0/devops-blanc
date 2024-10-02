@@ -163,7 +163,11 @@ jobs:
         # git rm report.txt 
         # git rebase --continue
 
- 
+    - name: Observation des branches après checkout
+      run: |
+        echo ${{github.head_ref}}
+        echo ${{github.base_ref}}
+        echo ${{github.ref}}
 
     # # création de la pull request
     # - name: Création de la pull request

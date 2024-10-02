@@ -144,7 +144,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         fetch-depth: 0
-        ref: stage
+        ref: refs/heads/stage
 
     - name: git
       run: |

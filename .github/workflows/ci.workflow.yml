@@ -158,7 +158,7 @@ jobs:
         git config user.email "<>"
         git pull --all
         git checkout -b origin/stage
-        git merge remotes/origin/stage origin/features
+        git merge remotes/origin/stage remotes/origin/features
         # git rebase origin/features
         # git rm report.txt 
         # git rebase --continue

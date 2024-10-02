@@ -2,11 +2,11 @@ name: Devops-Blanc
 
 on:
   
-  workflow_call:
-    inputs:
-      tag:
-        required: true
-        type: string
+  # workflow_call:
+  #   inputs:
+  #     tag:
+  #       required: true
+  #       type: string
   push:
     # tags:
     # - '*'
@@ -153,8 +153,9 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
-          ref: ${{ inputs.tag }}
-          # ref: main
+          # ref: ${{ inputs.tag }}
+          # ref: ${{github.ref}}
+          ref: main
 
       - name: Generate Git Tag
         id: generate_tag
@@ -180,15 +181,17 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
           git tag $NEW_TAG
-          git push origin $NEW_TAG
-          echo "${{ steps.generate_tag.outputs.new_tag }}"
+          # git push origin $NEW_TAG
+          git push origin main
+          echo "le new tag est: ${{ steps.generate_tag.outputs.new_tag }}"
+          echo "le new tag est: $NEW_TAG "
 
 
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ inputs.tag }}
-          # name: ${{ inputs.tag.outputs.version }}
+          tag: $NEW_TAG
+          name: $NEW_TAG
           # body: ${{ inputs.tag.outputs.changelog }}
           
           # tag: ${{ steps.generate_tag.outputs.new_tag }}

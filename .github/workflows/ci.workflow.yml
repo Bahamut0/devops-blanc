@@ -144,14 +144,13 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         # fetch-depth: 0
-        # ref: stage
+        ref: stage
 
     - name: git
       run: |
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        git checkout origin/stage
         git pull --all
         git rebase origin/features
         git rm report.txt 

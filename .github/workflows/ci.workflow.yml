@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - feature-*
+      - features
       - stage
       - main
   pull_request:
@@ -148,31 +149,51 @@ jobs:
 
 
     
-    - name: Observation des branches
-      run: |
-        echo ${{github.head_ref}}
-        echo ${{github.base_ref}}
-        echo ${{github.ref}}
+    # - name: Observation des branches
+    #   run: |
+    #     echo ${{github.head_ref}}
+    #     echo ${{github.base_ref}}
+    #     echo ${{github.ref}}
 
-    - name: git
-      run: |
-        git --version
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
-        git pull --all
-        git branch --show-current
-        git checkout -b origin/stage
-        git branch --show-current
-        git merge origin/stage remotes/origin/features
-        # git rebase origin/features
-        # git rm report.txt 
-        # git rebase --continue
+    # - name: git
+    #   run: |
+    #     git --version
+    #     git config user.name "GitHub Actions Bot"
+    #     git config user.email "<>"
+    #     git pull --all
+    #     git branch --show-current
+    #     git checkout -b origin/stage
+    #     git branch --show-current
+    #     git merge origin/stage remotes/origin/features
+    #     # git rebase origin/features
+    #     # git rm report.txt 
+    #     # git rebase --continue
 
-    - name: Observation des branches après checkout
-      run: |
-        echo ${{github.head_ref}}
-        echo ${{github.base_ref}}
-        echo ${{github.ref}}
+    # - name: Observation des branches après checkout
+    #   run: |
+    #     echo ${{github.head_ref}}
+    #     echo ${{github.base_ref}}
+    #     echo ${{github.ref}}
+
+
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        branch: features
+        base: stage
+
+    - name: Enable Pull Request Automerge
+      if: steps.cpr.outputs.pull-request-operation == 'created'
+      uses: peter-evans/enable-pull-request-automerge@v3
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+        merge-method: squash
+
+
+
 
     # # création de la pull request
     # - name: Création de la pull request

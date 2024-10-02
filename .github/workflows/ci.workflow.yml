@@ -144,7 +144,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         fetch-depth: 0
-        ref: stage
+        ref: features
 
     - name: git
       run: |
@@ -152,7 +152,7 @@ jobs:
         git --version
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
-        git merge origin/features
+        git rebase origin/stage
  
 
     # # création de la pull request

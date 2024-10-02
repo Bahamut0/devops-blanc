@@ -160,7 +160,9 @@ jobs:
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
         git pull --all
+        git branch --show-current
         git checkout -b origin/stage
+        git branch --show-current
         git merge origin/stage remotes/origin/features
         # git rebase origin/features
         # git rm report.txt 

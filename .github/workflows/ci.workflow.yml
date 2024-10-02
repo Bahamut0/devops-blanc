@@ -1,24 +1,17 @@
 name: Devops-Blanc
 
 on:
-  
-  # workflow_call:
-  #   inputs:
-  #     tag:
-  #       required: true
-  #       type: string
+
   push:
-    # tags:
-    # - '*'
     branches: [ feature-* ]
 
-    
   pull_request:
     branches: [ feature-*, features, stage, main ]
     types: [opened, closed]
 
   release:
     types: [published]
+
 
 permissions:
   contents: write
@@ -153,8 +146,6 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           fetch-depth: 0
-          # ref: ${{ inputs.tag }}
-          # ref: ${{github.ref}}
           ref: main
 
       - name: Generate Git Tag
@@ -182,68 +173,15 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
           git tag $NEW_TAG
-          # git push origin $NEW_TAG
           git push origin main
-
-      - name: Check Tag variables
-        run: | 
-          echo "le new tag est: ${{ steps.generate_tag.outputs.new_tag }}"
-          echo "le new tag est: ${{ steps.generate_tag }}"
-          echo "le new tag est: ${{ secrets.NEW_TAG }}"
-          echo "le new tag est: ${{ env.NEW_TAG }}"
-          echo "le new tag est: $NEW_TAG"
-
 
       - name: Création d'une release GitHub
         uses: ncipollo/release-action@v1
         with:
           tag: ${{env.NEW_TAG}}
           name: ${{env.NEW_TAG}}
-      #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          # body: ${{ inputs.tag.outputs.changelog }}
-          
-          # tag: ${{ steps.generate_tag.outputs.new_tag }}
-          # name: ${{ steps.generate_tag.outputs.new_tag }}
-          # body: ${{ steps.generate_tag.outputs.changelog }}
-########################################################################
-      # - name: Changement de version et tag
-        # id: tag_version
-        # uses: mathieudutour/github-tag-action@v6.2
-        # with:
-        #   github_token: ${{ secrets.GITHUB_TOKEN }}
-        #   # default_bump: minor
-        #   # en cas de commit_sha: false error : At least 40 characters are required; only 5 were supplied
-        #   # commit_sha: false
-        # uses: juliansangillo/tag-version@v1  
-        # with:  
-        #     production-branch: main 
-        #     test-branch: stage  
-        #     dev-branch: features  
 
-          # - name: Création d'une release GitHub
-      #   uses: ncipollo/release-action@v1
-      #   with:
-          
-      #     # tag: ${{ steps.tag_version.outputs.new_tag }}
-      #     # name: Release ${{ steps.tag_version.outputs.new_tag }}
-      #     # body: ${{ steps.tag_version.outputs.changelog }}
-      #     tag: ${{ steps.tag_version.outputs.revision }}
-      #     name: ${{ steps.tag_version.outputs.revision }}
-      #     # body: ${{ steps.tag_version.outputs.description }} 
 
-      ################################################
-      # - name: Bump version and push tag
-      #   uses: laputansoft/github-tag-action@v4.6
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     tag: ${{ steps.package-version.outputs.version }}
-
-      # - name: Création d'une release GitHub
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     tag:  ${{ steps.package-version.outputs.version }}
-      #     name: ${{ steps.package-version.outputs.version }}
-      #     body: ${{ steps.package-version.outputs.changelog }}
 
           
           

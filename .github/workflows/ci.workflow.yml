@@ -194,11 +194,11 @@ jobs:
           echo "le new tag est: $NEW_TAG"
 
 
-      # - name: Création d'une release GitHub
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     tag: ${{secrets.NEW_TAG}}
-      #     name: ${{secrets.NEW_TAG}}
+      - name: Création d'une release GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{env.NEW_TAG}}
+          name: ${{env.NEW_TAG}}
       #     token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           # body: ${{ inputs.tag.outputs.changelog }}
           

@@ -154,8 +154,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          fetch-depth: 0
-      - run: git tag ${{ github.event.inputs.tag }}
+          # fetch-depth: 0
 
 
       # - name: Changement de version et tag
@@ -183,18 +182,18 @@ jobs:
       #     name: ${{ steps.tag_version.outputs.revision }}
       #     # body: ${{ steps.tag_version.outputs.description }} 
 
-      # - name: Bump version and push tag
-      #   uses: laputansoft/github-tag-action@v4.6
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     tag: ${{ steps.package-version.outputs.version }}
+      - name: Bump version and push tag
+        uses: laputansoft/github-tag-action@v4.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.package-version.outputs.version }}
 
-      # - name: Création d'une release GitHub
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     tag:  ${{ steps.package-version.outputs.version }}
-      #     name: ${{ steps.package-version.outputs.version }}
-      #     body: ${{ steps.package-version.outputs.changelog }}
+      - name: Création d'une release GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          tag:  ${{ steps.package-version.outputs.version }}
+          name: ${{ steps.package-version.outputs.version }}
+          body: ${{ steps.package-version.outputs.changelog }}
 
           
           

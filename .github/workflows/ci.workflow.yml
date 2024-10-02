@@ -176,7 +176,13 @@ jobs:
           git push origin $NEW_TAG
 
 
-
+      - name: Création d'une release GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          
+          tag: ${{ steps.generate_tag.outputs.new_tag }}
+          name: Release ${{ steps.generate_tag.outputs.new_tag }}
+          body: ${{ steps.generate_tag.outputs.changelog }}
 ########################################################################
       # - name: Changement de version et tag
         # id: tag_version

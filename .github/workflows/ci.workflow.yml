@@ -3,7 +3,7 @@ name: Devops-Blanc
 on:
 
   push:
-    branches: [ feature-*, features, stage, main ]
+    branches: [ feature-* ]
     
   pull_request:
     branches: [ feature-*, features, stage, main ]
@@ -154,7 +154,8 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_sha: false
+          default_bump: false
+          # commit_sha: false
           
           
       - name: Création d'une release GitHub

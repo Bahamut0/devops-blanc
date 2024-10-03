@@ -34,19 +34,52 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Création d'une pull request à valider avant de merger vers la branche features
+      # Si un changement a été effectué et que le code est à nouveau poussé avant validation, la pull request est editée et non créée
       - name: Créer ou Editer la pull request
         run: gh pr create -B features --title 'Merge ${{github.ref_name}} into features' --body 'Created by Github action' || gh pr edit -B features --title 'Merge ${{github.ref_name}} into features' --body 'Created by Github action'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  # #   ###########################################################
+  # #   # JOB 2 Merger la branche de feature dans la branche main #
+  # #   ###########################################################
+
+  merge_on_stage:
+
+    # Ne fonctionne que si la branche features a été mergée après une pull request validée
+    if: github.event.pull_request.merged
+
+    runs-on: ubuntu-latest
+    
+    steps:
+        
+    # recupération du repository
+    - name: git checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        fetch-depth: 0
+        # ref: stage
+
+
+    - name: Création de la Pull Request 
+      id: cpr
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        branch: stage
+        base: features
+
+
+
     ##############################################################
-    # JOB 2 - Build l'env python et effectuer les tests unitaires #
+    # JOB 3 - Build l'env python et effectuer les tests unitaires #
     ##############################################################
 
   build_and_test:
 
-    # Ne fonctionne que si la branche features a été mergée après une pull request validée
-    if: github.event.pull_request.merged
+    needs: merge_on_stage
 
     runs-on: ubuntu-latest
 
@@ -85,41 +118,13 @@ jobs:
       run: scripts/mktest.sh
 
 
-  # #   ###########################################################
-  # #   # JOB 3 Merger la branche de feature dans la branche main #
-  # #   ###########################################################
-
-  merge_on_stage:
-
-    needs: build_and_test
-    runs-on: ubuntu-latest
-    
-    steps:
-        
-    # recupération du repository
-    - name: git checkout
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        fetch-depth: 0
-        # ref: stage
-
-
-    - name: Création de la Pull Request 
-      id: cpr
-      uses: peter-evans/create-pull-request@v3
-      with:
-        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        branch: stage
-        base: features
-
 
   #   ###########################################################
   #   # Job 4 Merger la branche de stage dans la branche main #
   #   ###########################################################
 
   merge_on_main:
-    needs: merge_on_stage
+    needs: build_and_test
     runs-on: ubuntu-latest
     steps:
 

@@ -34,8 +34,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: create pull request
-        run: gh pr create -B features -H ${{github.ref}} --title 'Merge ${{github.ref}} into features' --body 'Created by Github action'
+      - name: Créer ou Editer la pull request
+        run: gh pr create -B features -H ${{github.ref}} --title 'Merge ${{github.ref}} into features' --body 'Created by Github action' || gh pr edit -B features -H ${{github.ref}} --title 'Merge ${{github.ref}} into features' --body 'Created by Github action'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

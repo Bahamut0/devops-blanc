@@ -20,3 +20,30 @@
  
  * Les caractères génériques ne peuvent représenter qu'une seule lettre.
  * Le dictionnaire est chargé en mémoire, ce qui peut limiter la taille des dictionnaires utilisables.
+
+
+## Partie CICD :
+
+**Branches:**
+
+* `main` : branche de production
+
+* `stage` : branche de test
+
+* `features` : branche de développement
+
+* `feature-XXX` : branche personnelle provisoire à merger dans features
+
+**Workflow:**
+
+* En cas de push d'une branche `feature-XXX`, une pull request est créée avant merge vers la branche features
+
+* En cas de validation de la pull request la branche est mergée dans la branche `stage`
+
+* En cas de merge vers la branche stage, les tests sont effectués
+
+* En cas de tests réussis, une merge est effectuée sur la branche `main`
+
+* En cas de merge sur la branche main, un tag et une release sont créés
+
+

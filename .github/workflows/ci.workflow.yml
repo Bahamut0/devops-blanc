@@ -105,7 +105,7 @@ jobs:
         # ref: stage
 
 
-    - name: Create Pull Request
+    - name: Création de la Pull Request 
       id: cpr
       uses: peter-evans/create-pull-request@v3
       with:
@@ -129,7 +129,7 @@ jobs:
       with:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-    - name: Create Pull Request
+    - name: Création de la Pull Request
       id: prm
       uses: peter-evans/create-pull-request@v3
       with:
@@ -148,7 +148,7 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Generate Git Tag
+      - name: Générer le Git Tag
         id: generate_tag
         shell: bash {0}
         #^^^^^^^^^^^^^^
